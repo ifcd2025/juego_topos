@@ -13,11 +13,13 @@ function crearParcela() {
 }
 
 function mostrarBichos() {
+    const celdas = document.getElementsByClassName("celda");
     for(let i = 0; i < numeroBichos; i++) {
         const numeroCelda = Math.floor(Math.random() * 101);
-        
+        celdas[numeroCelda].style.backgroundImage = "url(imagenes/bicho.png)";
     }
 
 }
 
 crearParcela();
+mostrarBichos();
