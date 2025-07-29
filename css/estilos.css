@@ -44,6 +44,14 @@
    left: 50%;
    transform: translate(-50%, -50%);
    width: fit-content;
+   background-image: url(../imagenes/derrota.jpg);
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-color: rgba(0, 0, 0, 0.814);
+   padding: 1rem;
+   border: 2px solid white;
+   display: none;
 }
 #textoFin {
    text-align: center;
@@ -100,5 +108,14 @@
    100% {
       /* si no repetimos la imagen, al 100% volvería a poner la del terreno */
       background-image: url(../imagenes/muerto.png);
+   }
+}
+
+@keyframes animacionFin {
+   0% {
+      transform: scale(0) translate(-50%, -50%);
+   }
+   100% {
+      transform: scale(1)  translate(-50%, -50%);
    }
 }
