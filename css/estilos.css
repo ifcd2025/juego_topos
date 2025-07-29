@@ -15,6 +15,11 @@
     font-size: calc(1rem + 2vw);
     text-align: center;
  }
+ #datos {
+   text-align: center;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+   font-size: .8rem;
+ }
 
 #parcela {
     display: grid;
@@ -27,4 +32,44 @@
     border-radius: 10px;
     background-image: url(../imagenes/terreno.png);
     background-size: contain;
+    background-repeat: no-repeat;
+}
+
+@keyframes animacionMostrarTopo {
+   0% {
+      /*background-position: center 100%;*/
+      opacity: 0;
+      background-image: url(../imagenes/bicho.png);
+   }
+   50% {
+      /*background-position: center top;*/
+      opacity: 1;
+   }
+   90%{
+      opacity: 0;
+      background-image: url(../imagenes/bicho.png);
+   }
+   100% {
+      /*background-position: center 100%;*/
+     
+      background-image: url(../imagenes/terreno.png);
+   }
+}
+
+@keyframes animacionFallo {
+   50% {
+      background-color: red;
+      transform: scale(1.1);
+   }
+}
+
+@keyframes animacionMuerto {
+   50% {
+      background-image: url(../imagenes/muerto.png);
+      transform: scale(1.1);
+   }
+   100% {
+      /* si no repetimos la imagen, al 100% volvería a poner la del terreno */
+      background-image: url(../imagenes/muerto.png);
+   }
 }
