@@ -2,9 +2,11 @@ const filas = 10;
 const columnas = 10;
 const numeroBichos = 10;
 let bichosRestantes = numeroBichos;
+let intentosRestantes = 20;
 
 function crearParcela() {
     document.getElementById("bichosRestantes").textContent = bichosRestantes;
+    document.getElementById("intentosRestantes").textContent = intentosRestantes;
     const parcela = document.getElementById("parcela");
 
     for(let i = 0; i < filas * columnas; i++) {
@@ -52,6 +54,9 @@ function comprobarCelda(evt){
             evt.target.style.animation = "";
             evt.target.offsetWidth;
             evt.target.style.animation = "animacionMuerto .5s forwards"
+            // Quitamos el true ya que si no el jugador puede pulsar muchas
+            // veces esa celda
+            evt.target.dataset.bicho = "muerto";
             bichosRestantes--; // bichosRestantes = bichosRestantes - 1;
             document.getElementById("bichosRestantes").textContent = bichosRestantes;
             if(bichosRestantes == 0) {
@@ -60,12 +65,20 @@ function comprobarCelda(evt){
                     .removeEventListener("click", comprobarCelda);
                 alert("Has ganado");
             }
-        } else {
+        } else if(evt.target.dataset.bicho != "muerto") {
             // Si se aplica una animación, la próxima vez ya no la realiza
             // Para ello hay que hacer lo siguiente
             evt.target.style.animation = "";
             evt.target.offsetWidth;
             evt.target.style.animation = "animacionFallo .5s";
+            intentosRestantes--;
+            document.getElementById("intentosRestantes").textContent = intentosRestantes;
+            if(intentosRestantes == 0) {
+                // No queremos que siga pudiendo pulsar celdas
+                document.getElementById("parcela")
+                    .removeEventListener("click", comprobarCelda);
+                alert("Has perdido");
+            }
         }
     }
 }
