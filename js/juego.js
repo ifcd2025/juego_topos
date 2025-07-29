@@ -49,51 +49,47 @@ function comprobarCelda(evt){
     if(evt.target.classList.contains("celda")) {
         // true entre comillas pues dataset siempre guarda cadenas
         if(evt.target.dataset.bicho == "true") {
-            // Si se aplica una animación, la próxima vez ya no la realiza
-            // Para ello hay que hacer lo siguiente
-            evt.target.style.animation = "";
-            evt.target.offsetWidth;
-            evt.target.style.animation = "animacionMuerto .5s forwards"
+            aplicarAnimacion(evt.target, "animacionMuerto .5s forwards");
             // Quitamos el true ya que si no el jugador puede pulsar muchas
             // veces esa celda
             evt.target.dataset.bicho = "muerto";
             bichosRestantes--; // bichosRestantes = bichosRestantes - 1;
             document.getElementById("bichosRestantes").textContent = bichosRestantes;
             if(bichosRestantes == 0) {
-                // No queremos que siga pudiendo pulsar celdas
-                document.getElementById("parcela")
-                    .removeEventListener("click", comprobarCelda);
-                const fin = document.getElementById("fin");
-                document.getElementById("textoFin").textContent = "Has ganado";
-                fin.style.display = "block";
-                fin.style.animation = "animacionFin 1s";
-                fin.style.backgroundImage = "url(imagenes/victoria.jpg)";
+                mostrarFin("Has ganado", "victoria.jpg")
             }
         } else if(evt.target.dataset.bicho != "muerto") {
-            // Si se aplica una animación, la próxima vez ya no la realiza
-            // Para ello hay que hacer lo siguiente
-            evt.target.style.animation = "";
-            evt.target.offsetWidth;
-            evt.target.style.animation = "animacionFallo .5s";
+            aplicarAnimacion(evt.target, "animacionFallo .5s");
             intentosRestantes--;
             document.getElementById("intentosRestantes").textContent = intentosRestantes;
             if(intentosRestantes == 0) {
-                // No queremos que siga pudiendo pulsar celdas
-                document.getElementById("parcela")
-                    .removeEventListener("click", comprobarCelda);
-                
-                    const fin = document.getElementById("fin");
-                    document.getElementById("textoFin").textContent = "Has perdido";
-                    fin.style.display = "block";
-                    fin.style.animation = "animacionFin 1s";
-                    fin.style.backgroundImage = "url(imagenes/derrota.jpg)";
+               mostrarFin("Has perdido", "derrota.jpg");
             }
         }
     }
+}
+
+function aplicarAnimacion(elemento, animacion) {
+    // Si se aplica una animación, la próxima vez ya no la realiza
+    // Para ello hay que hacer lo siguiente
+    elemento.style.animation = "";
+    elemento.offsetWidth;
+    elemento.style.animation = animacion;
+}
+
+function mostrarFin(texto, imagen) {
+    // No queremos que siga pudiendo pulsar celdas
+    document.getElementById("parcela")
+        .removeEventListener("click", comprobarCelda);
+    const fin = document.getElementById("fin");
+    document.getElementById("textoFin").textContent = texto;
+    fin.style.display = "block";
+    fin.style.animation = "animacionFin 1s";
+    fin.style.backgroundImage = `url(imagenes/${imagen})`;
 }
 
 crearParcela();
 mostrarBichos();
 document.getElementById("cerrar")
     .addEventListener("click", 
-        () => document.getElementById("fin").style.display = "none");
+        () => window.location.reload());
