@@ -2,7 +2,7 @@ const filas = 10;
 const columnas = 10;
 const numeroBichos = 10;
 let bichosRestantes = numeroBichos;
-let intentosRestantes = 1;
+let intentosRestantes = 20;
 
 function crearParcela() {
     document.getElementById("bichosRestantes").textContent = bichosRestantes;
@@ -67,6 +67,7 @@ function comprobarCelda(evt){
                 document.getElementById("textoFin").textContent = "Has ganado";
                 fin.style.display = "block";
                 fin.style.animation = "animacionFin 1s";
+                fin.style.backgroundImage = "url(imagenes/victoria.jpg)";
             }
         } else if(evt.target.dataset.bicho != "muerto") {
             // Si se aplica una animación, la próxima vez ya no la realiza
@@ -85,6 +86,7 @@ function comprobarCelda(evt){
                     document.getElementById("textoFin").textContent = "Has perdido";
                     fin.style.display = "block";
                     fin.style.animation = "animacionFin 1s";
+                    fin.style.backgroundImage = "url(imagenes/derrota.jpg)";
             }
         }
     }
@@ -92,3 +94,6 @@ function comprobarCelda(evt){
 
 crearParcela();
 mostrarBichos();
+document.getElementById("cerrar")
+    .addEventListener("click", 
+        () => document.getElementById("fin").style.display = "none");
